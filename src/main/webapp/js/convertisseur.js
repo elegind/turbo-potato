@@ -42,28 +42,20 @@ var app = angular.module('todoApp', [])
 			'<div style="color:red; padding-top:2%;">{{$ctrl.error}}</div>'+
 		'</div>',
 		
-	controller :  function ConvertisseurController() {
+	controller :  function ConvertisseurController(convertisseurService) {
     //modele
 	
-	this.valueNetAnnuel = 0;
-	this.valueNetMensuel =0;
-	
+	this.valueNetAnnuel = convertisseurService.valueNetAnnuel;
+	this.valueNetMensuel = convertisseurService.valueNetMensuel;
 	//methodes
 	this.convert = function(){
-		if(this.valueBrut != undefined && $.isNumeric(this.valueBrut)){
-			this.valueNetAnnuel = (parseInt(this.valueBrut)*0.77).toFixed(0);
-			this.valueNetMensuel = (this.valueNetAnnuel / 12).toFixed(0);
-			this.error = "";
-		}
-		else if(this.valueBrut === ""){
-			this.error = "";
-			this.valueNetAnnuel = 0;
-			this.valueNetMensuel =0;
-		}
-		else{
-			this.error = "Entrez un nombre valide";
-		}
+		convertisseurService.convert(this.valueBrut);
+		this.valueBrut=convertisseurService.valueBrut;
+		this.valueNetAnnuel = convertisseurService.valueNetAnnuel;
+		this.valueNetMensuel = convertisseurService.valueNetMensuel;
+		this.error=convertisseurService.error;
 	};
+	
   }
   });
 
