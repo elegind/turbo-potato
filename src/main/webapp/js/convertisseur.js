@@ -43,19 +43,17 @@ var app = angular.module('todoApp', [])
 		'</div>',
 		
 	controller :  function ConvertisseurController(convertisseurService) {
-    //modele
-	
-	this.valueNetAnnuel = convertisseurService.valueNetAnnuel;
-	this.valueNetMensuel = convertisseurService.valueNetMensuel;
-	//methodes
-	this.convert = function(){
-		convertisseurService.convert(this.valueBrut);
-		this.valueBrut=convertisseurService.valueBrut;
-		this.valueNetAnnuel = convertisseurService.valueNetAnnuel;
-		this.valueNetMensuel = convertisseurService.valueNetMensuel;
-		this.error=convertisseurService.error;
-	};
-	
+	    //modele
+		
+		this.valueNetAnnuel = 0;
+		this.valueNetMensuel = 0;
+		//methodes
+		this.convert = function(){
+			var result = convertisseurService.convert(this.valueBrut);
+			this.valueNetAnnuel = result.valueNetAnnuel;
+			this.valueNetMensuel = result.valueNetMensuel;
+			this.error=result.error;
+		};
   }
   });
 

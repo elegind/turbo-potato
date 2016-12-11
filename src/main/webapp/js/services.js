@@ -2,20 +2,21 @@ app.factory('convertisseurService', function() {
 	var convertService = {};
 	
 	convertService.convert = function(valueBrut){
-		this.valueBrut=valueBrut;
-		if(this.valueBrut != undefined && $.isNumeric(this.valueBrut)){
-			this.valueNetAnnuel = (parseInt(this.valueBrut)*0.77).toFixed(0);
-			this.valueNetMensuel = (this.valueNetAnnuel / 12).toFixed(0);
-			this.error = "";
+		var result = {};
+		if($.isNumeric(valueBrut)){
+			result.valueNetAnnuel = (parseInt(valueBrut)*0.77).toFixed(0);
+			result.valueNetMensuel = (result.valueNetAnnuel / 12).toFixed(0);
+			result.error = "";
 		}
-		else if(this.valueBrut === ""){
-			this.error = "";
-			this.valueNetAnnuel = 0;
-			this.valueNetMensuel =0;
+		else if(valueBrut === ""){
+			result.error = "";
+			result.valueNetAnnuel = 0;
+			result.valueNetMensuel = 0;
 		}
 		else{
-			this.error = "Entrez un nombre valide";
+			result.error = "Entrez un nombre valide";
 		}
+		return result;
 	};
     return convertService;
 });
